@@ -11,6 +11,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
 import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class KafkaProducerSrv {
@@ -25,6 +26,7 @@ public class KafkaProducerSrv {
     @Value("${app.kafka.topic.log-events}")
     private String logEventsTopic;
 
+    @Transactional(value="transactionManager")
     public void sendLogEvent(LogEvent logEvent) {
         try {
             String message = objectMapper.writeValueAsString(logEvent);

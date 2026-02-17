@@ -2,19 +2,26 @@ package com.distributedlog.system.gateway.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.lang.annotation.Documented;
+import javax.persistence.*;
 
 @Getter
 @Setter
-@Document
+@Entity
+@Table(name = "api_routes")
 public class ApiRoute {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(nullable = false, unique = true)
     private String routeIdentifier;
+    
+    @Column(nullable = false)
     private String uri;
+    
     private String method;
+    
+    @Column(nullable = false)
     private String path;
 }

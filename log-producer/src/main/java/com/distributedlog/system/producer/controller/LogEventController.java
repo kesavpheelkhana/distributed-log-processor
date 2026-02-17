@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import io.micrometer.core.instrument.Counter;
 
+import javax.websocket.server.PathParam;
 import java.util.Map;
 
 @RestController
@@ -78,9 +79,9 @@ public class LogEventController {
         return ResponseEntity.ok(Map.of("status", "healthy"));
     }
 
-    @PostMapping("/sendMsg")
-    public ResponseEntity<String> sendMessage2Topic(@RequestParam String value) throws ClassNotFoundException {
-        demoListener.listen1(value);
+    @PostMapping("/sendMsg/{name}")
+    public ResponseEntity<String> sendMessage2Topic(@PathParam(value = "name") String name) throws ClassNotFoundException {
+        demoListener.listen1(name);
         return  new ResponseEntity<String>(HttpStatus.OK);
     }
 }
